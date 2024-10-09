@@ -26,7 +26,7 @@ V_2023_uni <- subset(Varanger_2023_uni, select = c("Date", "Time", "Mass"))
 H_2023_bi <- subset(Hochstetter_2023_bi, select = c("Date", "Time", "Mass"))
 H_2023_uni <- subset(Hochstetter_2023_uni, select = c("Date", "Time", "Masse mesurée"))
 
-## Nettoyer les données / supprimer données manquantes 
+## Supprimer données manquantes 
 
 Hochstetter_2022_bi <- sum(is.na(H_2022_bi)) ### nombres de données manquantes 
 H_2022_bi_supp<-na.omit(H_2022_bi)  ### supprimer 
@@ -44,4 +44,5 @@ Hochstetter_2023_uni<- sum(is.na(H_2023_uni))
 H_2023_uni_supp<-na.omit(H_2023_uni)
 
 ## données traitées non nettoyées
+## nettoyage des donées
 
