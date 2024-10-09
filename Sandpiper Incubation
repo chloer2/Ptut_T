@@ -1,1 +1,47 @@
+##### Projet tutoré #####
+
+
+## importer nos fichiers excel 
+
+install.packages("readxl")
+library(readxl)
+
+Hochstetter_2022_bi <- read_excel("AD-1688 V05.xlsx")
+Hochstetter_2021_uni <- read_excel("AD-1688a-d_V2.xlsx")
+Varanger_2023_uni <- read_excel("Balance BT_02(1-10)_VARA_2023.xlsx")
+Hochstetter_2023_bi<- read_excel("BS01_2023 (J1-J5).xlsx")
+Hochstetter_2023_uni<- read_excel("BS05_2023 (J1-J8) avec temp.xlsx")
+
+## données météos
+
+Hochstetter_2022_bi_meteo <- read_excel("AD-1688 V05 meteo.xlsx")
+Varanger_2023_uni_meteo <- read_excel("Balance BT_02(1-10)_VARA_2023 meteo.xlsx")
+Hochstetter_2023_bi_meteo<- read_excel("BS01_2023 (J1-J5) meteo.xlsx")
+
+## enlever colonnes inutiles 
+
+H_2022_bi <- subset(Hochstetter_2022_bi, select = c("day", "time", "Masse mesurée"))
+H_2021_uni <- subset(Hochstetter_2021_uni, select = c("date", "heure", "mass"))
+V_2023_uni <- subset(Varanger_2023_uni, select = c("Date", "Time", "Mass"))
+H_2023_bi <- subset(Hochstetter_2023_bi, select = c("Date", "Time", "Mass"))
+H_2023_uni <- subset(Hochstetter_2023_uni, select = c("Date", "Time", "Masse mesurée"))
+
+## Nettoyer les données / supprimer données manquantes 
+
+Hochstetter_2022_bi <- sum(is.na(H_2022_bi)) ### nombres de données manquantes 
+H_2022_bi_supp<-na.omit(H_2022_bi)  ### supprimer 
+
+Hochstetter_2021_uni<- sum(is.na(H_2021_uni))
+H_2021_uni_supp<-na.omit(H_2021_uni)
+
+Varanger_2023_uni <- sum(is.na(V_2023_uni))
+V_2023_uni_supp<-na.omit(V_2023_uni)
+
+Hochstetter_2023_bi<- sum(is.na(H_2023_bi))
+H_2023_bi_supp<-na.omit(H_2023_bi)
+
+Hochstetter_2023_uni<- sum(is.na(H_2023_uni))
+H_2023_uni_supp<-na.omit(H_2023_uni)
+
+## données traitées non nettoyées
 
