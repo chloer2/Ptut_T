@@ -1,0 +1,42 @@
+## Essayer de faire un delta masse (avec la ligne du dessus)
+install.packages("readr")
+library(readr)
+
+H_2021_uni_supp_fin <- read_csv("H_2021_uni_supp_fin.csv")
+View(H_2021_uni_supp_fin)
+
+# Delta 
+H_2021_uni_supp_fin$diff_Masse <- c(NA, diff(H_2021_uni_supp_fin$Masse))
+
+# Affichage du dataframe avec la nouvelle colonne
+print(H_2021_uni_supp_fin)
+
+# enlever les données entre 5 et -5 
+H_2021_uni_supp_fin$diff_Masse[H_2021_uni_supp_fin$diff_Masse > -5 & H_2021_uni_supp_fin$diff_Masse < 5] <- NA
+H_2021_uni_supp_fin
+
+# enlever les NA
+H_2021_uni <- na.omit(H_2021_uni_supp_fin)
+H_2021_uni
+
+### - : il est parti 
+### + : il revient 
+
+#### PROBLEME VOIR PROFS
+
+library(ggplot2)
+
+## Essaye de graph 1
+ggplot(H_2021_uni, aes(x = seq_along(diff_Masse), y = diff_Masse)) +
+  geom_line(color = "lightblue", na.rm = TRUE) +  # Tracer une ligne pour les valeurs de diff_masse
+  labs(title = "Différences de masse", x = "Index", y = "Différence de masse") 
+
+###### Essaye Graph 2 
+H_2021_uni$date_heure <- as.POSIXct(paste(H_2021_uni$Date, H_2021_uni$Heure), format="%Y-%m-%d %H:%M:%S")
+
+ggplot(H_2021_uni, aes(x = date_heure, y = diff_Masse)) +
+  geom_line(color = "blue") +  # Tracer une ligne pour les valeurs de masse
+  geom_point(color = "red") +  # Ajouter des points pour chaque valeur
+  labs(title = "Évolution de la masse au fil du temps", x = "Date et Heure", y = "Masse") +
+  theme_minimal() +  # Appliquer un thème épuré
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
